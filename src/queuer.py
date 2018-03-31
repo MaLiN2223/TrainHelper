@@ -1,7 +1,6 @@
 import argparse
-from configuration.reader import read_config
-import os
-from queuer_functions import *
+from src.configuration import read_config
+from src.queuer_functions import *
 import logging
 
 parser = argparse.ArgumentParser(description='Process')

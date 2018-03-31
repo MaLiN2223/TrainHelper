@@ -1,5 +1,5 @@
 from . import BaseRunner
-from functions import get_loggers
+from src.functions import get_loggers
 class Runner(BaseRunner):
     def __init__(self,model_generator, data_generator):
         self.model_generator = model_generator

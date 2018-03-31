@@ -1,7 +1,7 @@
 import sys
 from unittest import TestCase
 from mock import Mock
-from configuration.reader import Reader
+from src.configuration import Reader
 
 
 class ReaderTests(TestCase):

@@ -19,19 +19,8 @@ from keras.applications import InceptionV3
 from keras.applications import Xception # TensorFlow ONLY
 from keras.applications import VGG16
 from keras.applications import VGG19
-from keras.datasets import cifar10
-from keras.applications import imagenet_utils
-from keras.applications.inception_v3 import preprocess_input
-from keras.preprocessing.image import img_to_array
-from keras.preprocessing.image import load_img
-from keras import Sequential,Model
-from keras.activations import softmax
-from keras import applications
-from keras.preprocessing.image import ImageDataGenerator
 from keras.regularizers import l2,l1
-from keras import optimizers
-from keras.models import Sequential, Model
-from keras.callbacks import ModelCheckpoint, LearningRateScheduler, TensorBoard, EarlyStopping,CSVLogger
+from keras.callbacks import ModelCheckpoint, TensorBoard, EarlyStopping,CSVLogger
 from keras.datasets import cifar10, cifar100
 from sklearn.model_selection import train_test_split
 #import cv2
@@ -42,9 +31,9 @@ k.set_session(sess)
 
 
 import argparse
-import os,io
+import os
 
-from configuration.reader import read_config
+from src.configuration import read_config
 validation_data_dir = 'images-valid'
 train_data_dir = 'images'
 num_classes = 10
@@ -190,7 +179,7 @@ def load_c10_labels():
 
 def get_loggers(config, monitor='val_acc'):
 
-	from repeater import Repeater
+	from src.repeater import Repeater
 	early_stop = config['early_stop']
 	if early_stop is None:
 		early_stop = 10

@@ -1,12 +1,11 @@
-from functions import get_parameters
+from src.functions import get_parameters
 from keras.callbacks import Callback
 import datetime
 print('SETTING START TIME')
 start = datetime.datetime.now()
 print('Start time {}'.format(start))
 config,file_name = get_parameters()
-from queuer_functions import *
-from keras import optimizers
+from src.queuer_functions import *
 import logging
 
 class Repeater(Callback):
