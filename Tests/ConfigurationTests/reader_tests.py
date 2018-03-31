@@ -1,14 +1,17 @@
 import sys
 from unittest import TestCase
 from mock import Mock
-from src.configuration import Reader
+mocked_configparser = Mock()
+mocked_configparser_module = Mock()
+mocked_configparser_module.ConfigParser = Mock(return_value=mocked_configparser)
+sys.modules['configparser'] = mocked_configparser_module
+from src.configuration.reader import Reader
 
 
 class ReaderTests(TestCase):
-    def givenPathAndAsDictionary_willReadGoodFile(self):
+    def test_givenPathAndAsDictionary_willReadGoodFile(self):
         parser = Mock()
-        parser.sections = Mock(return_value=[])
-        sys.modules['configparser'] = parser
+        mocked_configparser.sections = Mock(return_value=[])
         config_path = 'config_path'
         reader = Reader()
 

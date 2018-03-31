@@ -204,3 +204,6 @@ venv.bak/
 
 
 # End of https://www.gitignore.io/api/python,intellij,pycharm+all
+
+
+/docs/*

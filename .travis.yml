@@ -1,0 +1,11 @@
+language: python
+sudo: required
+python:
+  - 3.6
+branches:
+  only:
+    - master
+    - dev
+script:
+    - pip install -e .
+    - python -m pytest
