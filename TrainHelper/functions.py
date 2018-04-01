@@ -38,7 +38,7 @@ def __load_and_log(name, extension='.npy'):
     return np.load('{}'.format(name, extension))
 
 
-def load_data(has_test=True, name_prefix="", ):
+def load_data(has_test=True, name_prefix=""):
     x_train = __load_and_log('{}x_train'.format(name_prefix))
     y_train = __load_and_log('{}y_train'.format(name_prefix))
     x_valid = __load_and_log('{}x_valid'.format(name_prefix))

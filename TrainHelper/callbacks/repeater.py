@@ -18,7 +18,8 @@ class Repeater(Callback):
     def on_epoch_end(self, epoch, logs=None):
         now = datetime.datetime.now()
         delta = (now - self.start).seconds // 60
-        if delta >= 7 * 60:  # 7 hrs
+        time_max = self.config.Repeater.time
+        if delta >= time_max * 60:  # time_max hrs
             logging.info('Delta is bigger than expected')
             self.queuer.queue(self.config, self.config.config_name, self.config.script, 'Y')
             self.model.stop_training = True

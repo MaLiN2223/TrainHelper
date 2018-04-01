@@ -4,7 +4,8 @@ import logging
 from functions import load_config, setup_logging
 from Queuers import SlurmQueuer, Queuer
 
-if __name__ == "__main__":
+
+def queue():
     config, config_name = load_config()
     setup_logging(config)
 

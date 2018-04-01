@@ -1,9 +1,10 @@
 from setuptools import setup, find_packages
-requirements = ["scikit-learn", "numpy"]
-test_requirements = ["pytest","pytest-runner","coverage","pytest-cov","mock"]
+
+requirements = ["scikit-learn", "numpy", "keras"]
+test_requirements = ["pytest", "pytest-runner", "coverage", "pytest-cov", "mock"]
 setup(
     name='TrainHelper',
-    version='0.0.2',
+    version='0.0.3.1',
     packages=find_packages(),
     url='https://github.com/MaLiN2223/TrainHelper',
     license='MIT',
