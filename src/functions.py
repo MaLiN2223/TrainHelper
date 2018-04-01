@@ -1,3 +1,71 @@
+from sklearn.model_selection import train_test_split
+import logging
+import numpy as np
+import argparse
+from src.configuration.reader import Reader
+
+
+def __save_and_log(data, name):
+    logging.info('Saving {}'.format(name))
+    np.save(name, data)
+
+
+def download_splitted_dataset(downloader, test_size=0.1, name_prefix="", random_state=1):
+    if test_size is None:
+        test_size = 0
+    logging.info('Downloading dataset.')
+    (x_train, y_train), (x_valid, y_valid) = downloader()
+
+    __save_and_log(x_train, '{}x_train'.format(name_prefix))
+    __save_and_log(y_train, '{}y_train'.format(name_prefix))
+
+    if test_size > 0:
+        logging.info('Splitting validation to two sets.')
+        x_valid, x_test, y_valid, y_test = train_test_split(x_valid, y_valid, test_size=test_size,
+                                                            random_state=random_state)
+        __save_and_log(x_test, '{}x_test'.format(name_prefix))
+        __save_and_log(y_test, '{}y_test'.format(name_prefix))
+        return (x_train, y_train), (x_valid, y_valid), (x_test, y_test)
+
+    __save_and_log(x_valid, '{}x_valid'.format(name_prefix))
+    __save_and_log(y_valid, '{}y_valid'.format(name_prefix))
+
+    return (x_train, y_train), (x_valid, y_valid)
+
+
+def __load_and_log(name, extension='.npy'):
+    logging.info('Loading {}'.format(name))
+    return np.load('{}'.format(name, extension))
+
+
+def load_data(has_test=True, name_prefix="", ):
+    x_train = __load_and_log('{}x_train'.format(name_prefix))
+    y_train = __load_and_log('{}y_train'.format(name_prefix))
+    x_valid = __load_and_log('{}x_valid'.format(name_prefix))
+    y_valid = __load_and_log('{}y_valid'.format(name_prefix))
+
+    if has_test:
+        x_test = __load_and_log('{}x_test'.format(name_prefix))
+        y_test = __load_and_log('{}y_test'.format(name_prefix))
+        return (x_train, y_train), (x_valid, y_valid), (x_test, y_test)
+    return (x_train, y_train), (x_valid, y_valid)
+
+
+def setup_logging(config):
+    log_file = 'logs/{}.log'.format(config.General.Name)
+    logging.basicConfig(filename=log_file, level=logging.INFO)
+    logging.info(config.config)
+
+
+def load_config():
+    print('---PARSING ARGUMENTS---')
+    parser = argparse.ArgumentParser(description='Inputs')
+    parser.add_argument('--config', help='config')
+    args, leftovers = parser.parse_known_args()
+    config_name = args.config
+    config = Reader.read(config_name)
+    return config, config_name
+
 # import numpy as np
 # import tensorflow as tf
 # import random as rn
@@ -75,23 +143,7 @@
 #
 # 	return config, config_name
 #
-# def download_dataset():
-# 	print('Downloading dataset')
-# 	(x_train, y_train), (x_test, y_test) = cifar10.load_data()
-# 	x_valid, x_test, y_valid, y_test = train_test_split(x_test,y_test,test_size = .5, random_state=1)
-# 	print('Saving x_train')
-# 	np.save('x_train',x_train)
-# 	print('Saving x_valid')
-# 	np.save('x_valid',x_valid)
-# 	print('Saving x_test')
-# 	np.save('x_test',x_test)
-#
-# 	print('Saving y_train')
-# 	np.save('y_train',y_train)
-# 	print('Saving y_valid')
-# 	np.save('y_valid',y_valid)
-# 	print('Saving y_test')
-# 	np.save('y_test',y_test)
+
 #
 # def download_cifar_100():
 # 	print('Downloading dataset')
@@ -177,25 +229,6 @@
 # 	y_valid = keras.utils.to_categorical(y_valid, num_classes=10)
 # 	return (x_train,y_train), (x_valid,y_valid)
 #
-# def get_loggers(config, monitor='val_acc'):
-#
-# 	from src.repeater import Repeater
-# 	early_stop = config['early_stop']
-# 	if early_stop is None:
-# 		early_stop = 10
-#
-# 	base_name = config.results_dir+'/'+config.name
-# 	base = keras.callbacks.BaseLogger()
-# 	checkpoint = ModelCheckpoint(base_name+'_best.h5', monitor=monitor, verbose=1, save_best_only=True, save_weights_only=False, mode='auto', period=1)
-# 	checkpoint2 = ModelCheckpoint(base_name+'.h5', monitor=monitor, verbose=1, save_weights_only=True, mode='auto', period=1)
-#
-# 	repeater = Repeater()
-# 	if early_stop is not False:
-# 		print('Doing early stoping with {}'.format(early_stop))
-# 		early = EarlyStopping(monitor='val_acc', min_delta=0, patience=early_stop, verbose=1, mode='auto')
-# 	board = TensorBoard(log_dir=base_name, histogram_freq=0, batch_size=config.batch_size, write_graph=True, write_grads=False, write_images=False, embeddings_freq=0, embeddings_layer_names=None, embeddings_metadata=None)
-# 	csv = CSVLogger(base_name+'.log')
-# 	return [base,checkpoint,checkpoint2,early,board,csv,repeater]
 #
 # def create_dir(name):
 # 	if not os.path.exists(name):

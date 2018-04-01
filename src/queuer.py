@@ -1,20 +1,27 @@
-# import argparse
-# from src.configuration import read_config
-# from src.queuer_functions import *
-# import logging
-#
-# parser = argparse.ArgumentParser(description='Process')
-# parser.add_argument('--config', help='file_name',default='default.cfg')
-# parser.add_argument('--script', help='sh file name',default='run')
-# parser.add_argument('--append', help='append',default='N')
-#
-# args, leftovers = parser.parse_known_args()
-# file_name = args.config
-# script = args.script
-# if not file_name.startswith('configs/'):
-#     file_name = os.path.join('configs',file_name)
-# logging.info(file_name)
-# logging.info('Running {}.sh'.format(script))
-#
-# config = read_config(file_name)
-# queue(config,file_name,script)
+import argparse
+import logging
+
+from functions import load_config, setup_logging
+from Queuers import SlurmQueuer, Queuer
+
+if __name__ == "__main__":
+    config, config_name = load_config()
+    setup_logging(config)
+
+    logging.info('Starting queuer')
+    parser = argparse.ArgumentParser(description='Process')
+    parser.add_argument('--script', help='sh file name', default='run')
+
+    args, leftovers = parser.parse_known_args()
+    script = args.script
+
+    queue_type = config.Queueing.QueueType.lower()
+    q = Queuer
+    if queue_type == 'slurm':
+        q = SlurmQueuer
+    q = q(config)
+    message = 'Running with config {}, script {}, using {}'.format(config_name, script, queue_type)
+    print(message)
+    logging.info(message)
+
+    q.queue(config)
