@@ -1,3 +1,8 @@
+# Installation instruction
+Currently requires Tensorflow backend which is not listed in setup.py, this dependency should be dropped in the future.
+`pip install Tensorflow`
+`pip install TrainHelper`
+
 # TODO:
 - [ ] Add contributors list
 - [ ] Make installation work
@@ -8,3 +13,7 @@
 - [ ] General example for running in console
 - [ ] Provide minimum config 
 - [ ] How to use repeater 
+
+#Contributors:
+1. [MaLiN2223](https://github.com/MaLiN2223)(szyszka45@gmail.com)
+2. [sony14](https://github.com/snony14) ()
