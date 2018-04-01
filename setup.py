@@ -8,7 +8,7 @@ with open("requirements.txt", 'r') as f:
 
 setup(
     name='TrainHelper',
-    version='1.0',
+    version='0.1',
     packages=find_packages(),
     url='https://github.com/MaLiN2223/TrainHelper',
     license='MIT',
@@ -17,4 +17,5 @@ setup(
     install_requires=requirements,
     setup_requires=test_requirements,
     tests_require=test_requirements,
+    download_url='https://github.com/MaLiN2223/TrainHelper/archive/0.1.tar.gz',
 )
