@@ -1,14 +1,9 @@
 from setuptools import setup, find_packages
-
-with open("requirements-tests.txt", 'r') as f:
-    test_requirements = f.read().split('\n')
-
-with open("requirements.txt", 'r') as f:
-    requirements = f.read().split('\n')
-
+requirements = ["scikit-learn", "numpy"]
+test_requirements = ["pytest","pytest-runner","coverage","pytest-cov","mock"]
 setup(
     name='TrainHelper',
-    version='0.1',
+    version='0.1.1',
     packages=find_packages(),
     url='https://github.com/MaLiN2223/TrainHelper',
     license='MIT',
