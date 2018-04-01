@@ -1,5 +1,6 @@
 import keras
 import logging
+from src.callbacks import Repeater
 
 
 def get_early_stopping(config):
@@ -28,7 +29,7 @@ def get_tensor_board(base_name, batch_size):
 
 def get_keras_callbacks(config):
     callbacks = []
-    base_name = config['General.ResultsDir'] + '/' + config.name
+    base_name = config.General.ResultsDir + '/' + config.General.Name
 
     if config.ModelCheckpoint.Best:
         callbacks.append(get_model_checkpoint(base_name, config.ModelCheckpoint.Monitor, True))
@@ -40,4 +41,6 @@ def get_keras_callbacks(config):
         callbacks.append(get_tensor_board(base_name, config.Training.BatchSize))
     if config.CSV:
         callbacks.append(keras.callbacks.CSVLogger(base_name + '.log'))
+    if config.Repeater:
+        callbacks.append(Repeater(config, config.queuer))
     return callbacks

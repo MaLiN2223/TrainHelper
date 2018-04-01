@@ -23,5 +23,5 @@ if __name__ == "__main__":
     message = 'Running with config {}, script {}, using {}'.format(config_name, script, queue_type)
     print(message)
     logging.info(message)
-
+    config.queuer = q
     q.queue(config)

@@ -1,5 +1,5 @@
 import logging
-from .Queuer import Queuer
+from .queuer import Queuer
 
 
 class SlurmQueuer(Queuer):
