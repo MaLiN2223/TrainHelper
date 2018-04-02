@@ -4,6 +4,8 @@ class ConfigSection:
 
     def __getattribute__(self, item):
         try:
+            if isinstance(item,str):
+                item = item.lower()
             return object.__getattribute__(self, item)
         except AttributeError:
             return None
@@ -17,7 +19,14 @@ class Config:
 
     def __getattribute__(self, item):
         try:
+            if isinstance(item,str):
+                item = item.lower()
             return object.__getattribute__(self, item)
         except AttributeError:
             return ConfigSection()
 
+    def __repr__(self):
+        self.__str__()
+    def __str__(self):
+        attrs = vars(self)
+        return ', '.join("%s: %s" % item for item in attrs.items())

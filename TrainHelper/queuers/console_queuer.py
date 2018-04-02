@@ -11,5 +11,5 @@ class ConsoleQueuer(Queuer):
         run_script = self.config.Queueing.ScriptName
         file_name = self.config.config_name
         print(run_script)
-        exec(open("./"+run_script).read())
+        exec(open("./"+run_script).read(),globals())
         #execfile('{} --config {}'.format(run_script, file_name))

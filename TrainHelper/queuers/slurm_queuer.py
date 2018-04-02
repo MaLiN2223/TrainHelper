@@ -25,9 +25,9 @@ class SlurmQueuer(Queuer):
         for i in range(10, 25):
             available += 'landonia{},'.format(i)
         available = available[:-1]
-        command = 'sbatch --job-name {0} --error=error-{0} --output=output-{0} {3} {2}.sh {1} '.format(job, file_name,
-                                                                                                       run_script,
-                                                                                                       available)
+        command = 'sbatch --job-name {0} --error=error-{0} --output=output-{0} {3} {2} {1} '.format(job, file_name,
+                                                                                                    run_script,
+                                                                                                    available)
 
         if args:
             command += args

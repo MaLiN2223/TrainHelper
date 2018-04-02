@@ -16,7 +16,7 @@ def __get_model_checkpoint(base_name, monitor, save_best_only):
     comment = "for best epoch" if save_best_only else "every epoch"
     logging.info('Model will save checkpoint {}'.format(comment))
     return keras.callbacks.ModelCheckpoint(base_name + '_best.h5', monitor=monitor, save_best_only=save_best_only,
-                                    save_weights_only=True, mode='auto', period=None if save_best_only else 1)
+                                           save_weights_only=True, mode='auto', period=1)
 
 
 def __get_tensor_board(base_name, batch_size):
@@ -38,7 +38,6 @@ def get_keras_callbacks(config):
     if config.CSV:
         callbacks.append(keras.callbacks.CSVLogger(base_name + '.log'))
     if config.Repeater:
-        from TrainHelper.callbacks import Repeater # because we don't want to import TensorFlow directly
+        from TrainHelper.callbacks import Repeater  # because we don't want to import TensorFlow directly
         callbacks.append(Repeater(config, config.queuer))
-    print(callbacks)
     return callbacks

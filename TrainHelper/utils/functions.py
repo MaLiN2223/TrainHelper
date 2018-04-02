@@ -54,10 +54,15 @@ def load_data(has_test=True, name_prefix=""):
 
 
 def setup_logging(config):
-    ensure_dir_exists('logs')
-    log_file = 'logs/{}.log'.format(config.General.Name)
+    for handler in logging.root.handlers[:]:  # hack, logger was not logging to the file at all
+        logging.root.removeHandler(handler)
+    d = 'logs'
+    ensure_dir_exists(d)
+    log_file = './{}/{}.log'.format(d, config.General.Name)
+    with open(log_file, 'w'):
+        pass
     print('Setting up logging in ', log_file)
-    logging.basicConfig(filename=log_file, level=logging.INFO)
+    logging.basicConfig(filename=log_file, level=logging.DEBUG)
     logging.info(config.config)
 
 

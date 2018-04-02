@@ -27,4 +27,4 @@ def queue():
     print(message)
     logging.info(message)
     config.queuer = q
-    q.queue(config)
+    q.queue()

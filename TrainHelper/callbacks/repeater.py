@@ -6,7 +6,7 @@ import logging
 class Repeater(Callback):
     def __init__(self, config, queuer):
         super(Callback, self).__init__()
-        self.start = None
+        self.start = datetime.datetime.now()
         self.config = config
         self.queuer = queuer
 
@@ -18,7 +18,8 @@ class Repeater(Callback):
     def on_epoch_end(self, epoch, logs=None):
         now = datetime.datetime.now()
         delta = (now - self.start).seconds // 60
-        time_max = self.config.Repeater.time
+        time_max = self.config.Repeater.Time
+        print(delta,time_max*60)
         if delta >= time_max * 60:  # time_max hrs
             logging.info('Delta is bigger than expected')
             self.queuer.queue(self.config, self.config.config_name, self.config.script, 'Y')

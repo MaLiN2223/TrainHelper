@@ -38,8 +38,8 @@ class Reader:
             for option in options:
                 value = config_data[section_name][option]
                 val = Reader.__parse(value)
-                setattr(section, option, val)
-            setattr(configuration, section_name, section)
+                setattr(section, option.lower(), val)
+            setattr(configuration, section_name.lower(), section)
         return configuration
 
     @staticmethod
