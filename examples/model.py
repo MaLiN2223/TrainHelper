@@ -2,10 +2,10 @@ import keras
 from keras.datasets import cifar100
 from keras.layers import *
 from keras.models import Model
-from src.runners import Runner
-from src.functions import load_config, download_splitted_dataset, load_data
+from TrainHelper.runners import Runner
+from TrainHelper.utils.functions import load_config, download_splitted_dataset, load_data
 
-def get_model():
+def get_model(config):
 
     x = input = Input((32, 32, 3))
     x = Dense(12, input_dim=8, activation='relu')(x)

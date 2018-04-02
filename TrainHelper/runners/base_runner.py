@@ -1,6 +1,6 @@
 class BaseRunner:
     def __init__(self):
-        raise NotImplementedError()
+        pass
 
     def run(self, config):
         raise NotImplementedError()

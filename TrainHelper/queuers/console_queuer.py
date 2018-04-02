@@ -10,5 +10,6 @@ class ConsoleQueuer(Queuer):
         print('Running on console')
         run_script = self.config.Queueing.ScriptName
         file_name = self.config.config_name
-        command = 'python {} --config {}'.format(run_script, file_name)
-        self._execute_command(command)
+        print(run_script)
+        exec(open("./"+run_script).read())
+        #execfile('{} --config {}'.format(run_script, file_name))

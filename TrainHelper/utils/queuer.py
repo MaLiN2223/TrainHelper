@@ -1,8 +1,8 @@
 import argparse
 import logging
 
-from functions import load_config, setup_logging
-from Queuers import SlurmQueuer, Queuer
+from ..utils.functions import load_config, setup_logging
+from ..queuers import SlurmQueuer, Queuer, ConsoleQueuer
 
 
 def queue():
@@ -20,6 +20,8 @@ def queue():
     q = Queuer
     if queue_type == 'slurm':
         q = SlurmQueuer
+    if queue_type == 'console':
+        q = ConsoleQueuer
     q = q(config)
     message = 'Running with config {}, script {}, using {}'.format(config_name, script, queue_type)
     print(message)

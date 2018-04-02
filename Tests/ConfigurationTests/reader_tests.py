@@ -6,7 +6,7 @@ mocked_configparser_module = Mock()
 mocked_configparser.sections = Mock(return_value=[])
 mocked_configparser_module.ConfigParser = Mock(return_value=mocked_configparser)
 sys.modules['configparser'] = mocked_configparser_module
-from src.configuration.reader import Reader
+from TrainHelper.configuration.reader import Reader
 
 
 class ReaderTests(TestCase):

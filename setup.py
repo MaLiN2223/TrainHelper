@@ -4,7 +4,7 @@ requirements = ["scikit-learn", "numpy", "keras"]
 test_requirements = ["pytest", "pytest-runner", "coverage", "pytest-cov", "mock"]
 setup(
     name='TrainHelper',
-    version='0.0.3.1',
+    version='0.0.3.12',
     packages=find_packages(),
     url='https://github.com/MaLiN2223/TrainHelper',
     license='MIT',
