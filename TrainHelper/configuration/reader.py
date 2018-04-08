@@ -55,7 +55,8 @@ class Reader:
                 return float(s)
             except ValueError:
                 if s[0] == '[' and s[-1] == ']':
-                    return map(float, s.split(','))
+                    s = s.replace("[","").replace("]","")
+                    return list(map(float, s.split(',')))
                 else:
                     return s  # return as a string
 
