@@ -2,7 +2,7 @@ import argparse
 import logging
 
 from ..utils.functions import load_config, setup_logging
-from ..queuers import SlurmQueuer, Queuer, ConsoleQueuer
+from ..queuers import SlurmQueuer, Queuer, ConsoleQueuer, QsubQueuer
 
 
 def queue():
@@ -22,6 +22,8 @@ def queue():
         q = SlurmQueuer
     if queue_type == 'console':
         q = ConsoleQueuer
+    if queue_type == 'qsub':
+        q = QsubQueuer
     q = q(config)
     message = 'Running with config {}, script {}, using {}'.format(config_name, script, queue_type)
     print(message)
